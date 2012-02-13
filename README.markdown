@@ -1,5 +1,11 @@
-Templates for [pandoc](http://github.com/jgm/pandoc).
+This is a fork of the default
+[pandoc-templates](http://github.com/jgm/pandoc-templates) for
+[pandoc](http://github.com/jgm/pandoc).  It provides the following additional
+templates:
 
-If you use custom templates, we recommend forking this repository,
-so that you can integrate changes to the default templates in future
-pandoc releases.
+-  default.mla-paper:  a latex template that provides a default MLA-formatted
+   paper template.  It uses the variables `authorfirst`, `authorlast`,
+   `professorlast`, and `classname` to determine components of the MLA output.
+
+-  default.latex-hw: a latex template based on the article class with more
+   minimal title output and smaller margins, suitable for homework exercises.
