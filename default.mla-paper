@@ -1,4 +1,5 @@
-\documentclass[$if(fontsize)$$fontsize$,$endif$]{$documentclass$}
+\documentclass[12pt,letterpaper]{article}
+\usepackage{mla}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifxetex
@@ -110,9 +111,7 @@ $if(date)$
 $endif$
 
 \begin{document}
-$if(title)$
-\maketitle
-$endif$
+\begin{mla}{$authorfirst$}{$authorlast$}{$professorlast$}{$class$}{$date$}{$title$}
 
 $for(include-before)$
 $include-before$
@@ -145,4 +144,5 @@ $for(include-after)$
 $include-after$
 
 $endfor$
+\end{mla}
 \end{document}
