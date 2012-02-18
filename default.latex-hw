@@ -1,4 +1,4 @@
-\documentclass[$if(fontsize)$$fontsize$,$endif$]{$documentclass$}
+\documentclass[$if(fontsize)$$fontsize$,$endif$]{article}
 \usepackage[top=.8in, bottom=.8in, left=.8in, right=.8in]{geometry}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
@@ -112,7 +112,7 @@ $endif$
 
 \begin{document}
 $if(title)$
-\subsection{\@title - \@author}
+\subsection{$title$ - $author$}
 $endif$
 
 $for(include-before)$
