@@ -66,12 +66,12 @@ $endif$
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
               xetex,
-              colorlinks=true,
-              linkcolor=blue]{hyperref}
+              colorlinks=$if(colorlinks)$true$else$false$endif$,
+              linkcolor=$if(linkcolor)$$linkcolor$$else$blue$endif$]{hyperref}
 \else
   \usepackage[unicode=true,
-              colorlinks=true,
-              linkcolor=blue]{hyperref}
+              colorlinks=$if(colorlinks)$true$else$false$endif$,
+              linkcolor=$if(linkcolor)$$linkcolor$$else$blue$endif$]{hyperref}
 \fi
 \hypersetup{breaklinks=true, pdfborder={0 0 0}}
 $if(strikeout)$
