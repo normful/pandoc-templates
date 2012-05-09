@@ -1,4 +1,5 @@
 \documentclass[12pt,letterpaper]{article}
+\usepackage{setspace}
 \usepackage{ifpdf}
 \usepackage{mla}
 \usepackage{amssymb,amsmath}
