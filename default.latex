@@ -1,17 +1,39 @@
-\documentclass[$if(fontsize)$$fontsize$,$endif$]{$documentclass$}
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$]{$documentclass$}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\ifxetex
-  \usepackage{fontspec,xltxtra,xunicode}
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-\else
-  \ifluatex
-    \usepackage{fontspec}
-    \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \else
-    \usepackage[utf8]{inputenc}
+\usepackage{fixltx2e} % provides \textsubscript
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
   \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont{$mathfont$}
+$endif$
 \fi
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
 $if(natbib)$
 \usepackage{natbib}
 \bibliographystyle{plainnat}
@@ -34,21 +56,8 @@ $endif$
 $if(verbatim-in-note)$
 \usepackage{fancyvrb}
 $endif$
-$if(fancy-enums)$
-% Redefine labelwidth for lists; otherwise, the enumerate package will cause
-% markers to extend beyond the left margin.
-\makeatletter\AtBeginDocument{%
-  \renewcommand{\@listi}
-    {\setlength{\labelwidth}{4em}}
-}\makeatother
-\usepackage{enumerate}
-$endif$
 $if(tables)$
-\usepackage{ctable}
-\usepackage{float} % provides the H option for float placement
-$endif$
-$if(url)$
-\usepackage{url}
+\usepackage{longtable}
 $endif$
 $if(graphics)$
 \usepackage{graphicx}
@@ -65,22 +74,26 @@ $endif$
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
-              xetex,
-              colorlinks=$if(colorlinks)$true$else$false$endif$,
-              linkcolor=$if(linkcolor)$$linkcolor$$else$blue$endif$]{hyperref}
+              xetex]{hyperref}
 \else
-  \usepackage[unicode=true,
-              colorlinks=$if(colorlinks)$true$else$false$endif$,
-              linkcolor=$if(linkcolor)$$linkcolor$$else$blue$endif$]{hyperref}
+  \usepackage[unicode=true]{hyperref}
 \fi
-\hypersetup{breaklinks=true, pdfborder={0 0 0}}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={$author-meta$},
+            pdftitle={$title-meta$},
+            colorlinks=$if(colorlinks)$true$else$false$endif$,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            pdfborder={0 0 0}}
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
 $if(strikeout)$
 \usepackage[normalem]{ulem}
 % avoid problems with \sout in headers with hyperref:
 \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
-$endif$
-$if(subscript)$
-\newcommand{\textsubscr}[1]{\ensuremath{_{\scriptsize\textrm{#1}}}}
 $endif$
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
@@ -93,7 +106,12 @@ $if(verbatim-in-note)$
 \VerbatimFootnotes % allows verbatim text in footnotes
 $endif$
 $if(lang)$
-\usepackage[$lang$]{babel}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{$mainlang$}
+\else
+  \usepackage[$lang$]{babel}
+\fi
 $endif$
 $for(header-includes)$
 $header-includes$
@@ -102,12 +120,8 @@ $endfor$
 $if(title)$
 \title{$title$}
 $endif$
-$if(author)$
 \author{$for(author)$$author$$sep$ \and $endfor$}
-$endif$
-$if(date)$
 \date{$date$}
-$endif$
 
 \begin{document}
 $if(title)$
@@ -119,8 +133,10 @@ $include-before$
 
 $endfor$
 $if(toc)$
+{
+\hypersetup{linkcolor=black}
 \tableofcontents
-
+}
 $endif$
 $body$
 
