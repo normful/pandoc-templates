@@ -12,9 +12,13 @@ $if(euro)$
   \usepackage{eurosym}
 $endif$
 \else % if luatex or xelatex
+  \usepackage[utf8]{inputenc}
   \usepackage{fontspec}
   \ifxetex
     \usepackage{xltxtra,xunicode}
+    \usepackage{fontspec}
+    \usepackage{xunicode}
+    \defaultfontfeatures{Scale=MatchLowercase}
   \fi
   \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
   \newcommand{\euro}{€}
