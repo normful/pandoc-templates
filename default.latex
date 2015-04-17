@@ -127,7 +127,7 @@ $endif$
 \author{$for(author)$$author$$sep$ \and $endfor$}
 \date{$date$}
 
-\begin{document}
+\begin{document}{}
 $if(title)$
 \maketitle
 $endif$
