@@ -113,7 +113,8 @@ $if(date)$
 $endif$
 
 \begin{document}
-\begin{mla}{$authorfirst$}{$authorlast$}{$professorlast$}{$class$}{$date$}{$title$}
+\begin{mla}
+{$authorfirst$}{$authorlast$}{$professorlast$}{$class$}{$date$}{$title$}
 
 $for(include-before)$
 $include-before$
