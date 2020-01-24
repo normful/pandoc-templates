@@ -12,3 +12,5 @@ templates:
 
 -  default.latex-hw: a latex template based on the article class with more
    minimal title output and smaller margins, suitable for homework exercises.
+
+
